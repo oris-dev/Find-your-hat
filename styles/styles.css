@@ -1,0 +1,39 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+header,main{
+
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    margin: 2vw 2vh;
+}
+
+header{
+    
+    flex-direction: column;
+    gap: 1.5vh;
+}
+
+article{
+    flex-direction: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#game-board{
+    width: 50vw; /* Limit the width */
+    height: auto;
+    border: 2px black solid;
+    background-color: bisque;
+    display: grid; /* Add grid display */
+    grid-template-columns: repeat(5, 1fr); /* Create 5 columns */
+    grid-template-rows: repeat(5, 1fr); /* Create 5 rows */
+    gap: 2px; /* Add some gap between cells */
+    background-color: bisque;
+    margin-right: 6vw;
+    
+}

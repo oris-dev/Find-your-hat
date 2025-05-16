@@ -1,0 +1,31 @@
+:root{
+    --cell-width: 12.5vw;
+    --cell-height: 15vh;
+}
+
+.cell{
+    width: var(--cell-width);
+    height: var(--cell-height);
+    display: block;
+}
+
+.hat{
+    background-color:red;    
+}
+
+.grass{
+    background-color: green;
+}
+
+.dirt{
+    background-color: brown;
+}
+
+.hole{
+    background-color:black;
+}
+
+.player{
+    background-image: url('/assets/Player.png');
+}
+
