@@ -1,17 +1,19 @@
-const hat = '^';
-const hole = 'O';
-const fieldCharacter = '░';
-const dirt = '|';
-const pathCharacter = '*';
-
 
 class Field {
+
+    static player = '*';
+    static hat = '^';
+    static hole = 'O';
+    static grass = '░';
+    static dirt = '|';
+
     constructor(area, horizontal, vertical) {
         this._area = area;
         this._horizontal = horizontal;
         this._vertical = vertical;
         this._cells = []; // DOM cells grid
     }
+
 
     // DOM visual reference setter
     get cells() {
@@ -57,7 +59,7 @@ class Field {
             return true;
         }
 
-        if (this._area[this._vertical][this._horizontal] === hole) {
+        if (this._area[this._vertical][this._horizontal] === Field.hole) {
             console.log("You fell in a hole. You lost.");
             return true;
         }
@@ -66,7 +68,7 @@ class Field {
     }
 
     won() {
-        if (this._area[this._vertical][this._horizontal] === hat) {
+        if (this._area[this._vertical][this._horizontal] === Field.hat) {
             console.log("You won!");
             return true;
         }
@@ -96,13 +98,13 @@ class Field {
                 this._horizontal += 1;
                 break;
             default:
-                return; // do nothing if it's not a movement key
+                break; // do nothing if it's not a movement key
         }
 
 
         if (!this.lost() && !this.won()) {
-            this._area[prevPos.v][prevPos.h] = dirt; // making movement
-            this._area[this._vertical][this._horizontal] = pathCharacter;
+            this._area[prevPos.v][prevPos.h] = Field.dirt;
+            this._area[this._vertical][this._horizontal] = Field.player;
             prevPos.v = this._vertical; // update prev player Positions
             prevPos.h = this._horizontal;
             this.updateBoardVisual();
@@ -114,23 +116,24 @@ class Field {
         for (let row = 0; row < this._area.length; row++) {
             for (let col = 0; col < this._area[row].length; col++) {
                 const cell = this._cells[row][col];
-                cell.className = 'cell'; // Reset base class
+                cell.classList.add('cell') // Reset base class
 
                 switch (this._area[row][col]) {
-                    case hat:
+                    case Field.hat:
                         cell.classList.add('hat');
                         break;
-                    case hole:
+                    case Field.hole:
                         cell.classList.add('hole');
                         break;
-                    case pathCharacter:
+                    case Field.player:
                         cell.classList.add('player');
                         break;
-                    case fieldCharacter:
+                    case Field.grass:
                         cell.classList.add('grass');
                         break;
-                    default:
+                    case Field.dirt:
                         cell.classList.add('dirt');
+                    default:
                         cell.classList.remove('player');
                         break;
                 }
@@ -146,14 +149,14 @@ class Field {
 
     static generateField(height, width) {
         const field = Array.from({ length: height }, () =>
-            Array.from({ length: width }, () => fieldCharacter)
+            Array.from({ length: width }, () => Field.grass)
         );
 
-        field[0][0] = pathCharacter;
+        field[0][0] = Field.player;
 
         const hatRow = Math.floor(Math.random() * height);
         const hatCol = Math.floor(Math.random() * width);
-        field[hatRow][hatCol] = hat;
+        field[hatRow][hatCol] = Field.hat;
 
         const minHoles = 2;
         const maxHoles = Math.ceil((height * width) * 0.3);
@@ -164,8 +167,8 @@ class Field {
             const r = Math.floor(Math.random() * height);
             const c = Math.floor(Math.random() * width);
 
-            if (field[r][c] === fieldCharacter && !(r === 0 && c === 0)) {
-                field[r][c] = hole;
+            if (field[r][c] === Field.grass && !(r === 0 && c === 0) && field[r][c] !== Field.hat) {
+                field[r][c] = Field.hole;
                 holesPlaced++;
             }
         }

@@ -12,6 +12,11 @@ header,main{
     margin: 2vw 2vh;
 }
 
+main{
+    flex-direction: column;
+    gap: 2rem;
+}
+
 header{
     
     flex-direction: column;
