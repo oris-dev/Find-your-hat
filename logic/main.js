@@ -3,7 +3,7 @@ import { Field } from "./game.js";
 let running = true;
 
 // Create a 5x5 grid and starting position of 0,0
-let area = Field.generateField(5, 5);
+let area = Field.generateArea(5, 5);
 let gameArea = new Field(area, 0, 0);
 let boardCreated = false;
 
@@ -12,10 +12,10 @@ const cells = [];
 
 
 
+
 function createBoard() {
 
     if (!boardCreated) {
-
 
         for (let row = 0; row < area.length; row++) {
             const cellRow = [];
@@ -38,11 +38,11 @@ function createBoard() {
 
             cells.push(cellRow);
             gameArea.cells = cells;
-          
+
         }
 
-          boardCreated = true;
-          console.log(gameArea.print());
+        boardCreated = true;
+        console.log(gameArea.print());
 
     } else {
         alert('board has already been created');
@@ -56,27 +56,44 @@ function createBoard() {
 
 function restartBoard() {
 
-    //regenerating the field
-    area = Field.generateField(5,5);
-     gameArea = new Field(area, 0, 0);
+    //remove all classes from every cell
+    for (let row = 0; row < cells.length; row++) {
+        for (let col = 0; col < cells[row].length; col++) {
+            const cell = cells[row][col];
+            cell.classList.remove(...cell.classList);
+            cell.classList.add('cell');
+        }
+    }
 
+
+
+    //regenerating the field and restarting the running boolean
+    area = Field.generateArea(5, 5);
+    gameArea = new Field(area, 0, 0);
+    gameArea.cells = cells;
+    running = true;
 
     //go over each cell and recreate the visuals based on the new field
     for (let row = 0; row < cells.length; row++) {
         for (let col = 0; col < cells[row].length; col++) {
             const cell = cells[row][col];
 
-            
+
             switch (area[row][col]) {
                 case Field.hat: cell.classList.add('hat'); break;
                 case Field.hole: cell.classList.add('hole'); break;
                 case Field.player: cell.classList.add('player'); break;
                 case Field.grass: cell.classList.add('grass'); break;
                 default: cell.classList.add('dirt'); break;
-                
+
             }
+
         }
     }
+
+    gameArea.print();
+
+
 
 }
 
@@ -97,12 +114,12 @@ function initListeners() {
                 let alertMsg = `You lost`;
                 //assaigning losing cause 
                 const outOfBounds = gameArea.outOfBounds();
-                outOfBounds ? alertMsg += ` you were out of bounds` : alertMsg = ` You fell on a hole` ;
-                alertMsg += `/n You were on horizontal: ` + gameArea.horizontal + ` vertical: ` + gameArea.vertical; 
+                outOfBounds ? alertMsg += ` you were out of bounds` : alertMsg = ` You fell on a hole`;
+                alertMsg += `/n You were on horizontal: ` + gameArea.horizontal + ` vertical: ` + gameArea.vertical;
 
 
                 alert(alertMsg);
-             
+
             }
             else if (gameArea.won()) {
                 running = false;
@@ -115,7 +132,7 @@ function initListeners() {
     });
 
     //restart game
-   document.getElementById('restart').addEventListener("click", restartBoard);
+    document.getElementById('restart').addEventListener("click", restartBoard);
 
 }
 

@@ -107,12 +107,12 @@ class Field {
             this._area[this._vertical][this._horizontal] = Field.player;
             prevPos.v = this._vertical; // update prev player Positions
             prevPos.h = this._horizontal;
-            this.updateBoardVisual();
+            this.updateBoardVisuals();
             this.print(); // optional debug
         }
     }
 
-    updateBoardVisual() {
+    updateBoardVisuals() {
         for (let row = 0; row < this._area.length; row++) {
             for (let col = 0; col < this._area[row].length; col++) {
                 const cell = this._cells[row][col];
@@ -147,7 +147,7 @@ class Field {
         }
     }
 
-    static generateField(height, width) {
+    static generateArea(height, width) {
         const field = Array.from({ length: height }, () =>
             Array.from({ length: width }, () => Field.grass)
         );
@@ -156,8 +156,14 @@ class Field {
 
         const hatRow = Math.floor(Math.random() * height);
         const hatCol = Math.floor(Math.random() * width);
+        while(field[hatRow][hatCol] === Field.player){
+            hatRow =  Math.floor(Math.random() * height);
+            hatCol = Math.floor(Math.random() * width);
+        }
         field[hatRow][hatCol] = Field.hat;
 
+        
+    
         const minHoles = 2;
         const maxHoles = Math.ceil((height * width) * 0.3);
         const numHoles = Math.floor(Math.random() * (maxHoles - minHoles + 1)) + minHoles;
@@ -167,7 +173,7 @@ class Field {
             const r = Math.floor(Math.random() * height);
             const c = Math.floor(Math.random() * width);
 
-            if (field[r][c] === Field.grass && !(r === 0 && c === 0) && field[r][c] !== Field.hat) {
+            if (field[r][c] !== Field.player  && field[r][c] !== Field.hat) {
                 field[r][c] = Field.hole;
                 holesPlaced++;
             }
