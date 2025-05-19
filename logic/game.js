@@ -7,11 +7,11 @@ class Field {
     static grass = '░';
     static dirt = '|';
 
-    constructor(area, horizontal, vertical) {
+    constructor(area, horizontal, vertical){
         this._area = area;
+        this._cells = [];
         this._horizontal = horizontal;
         this._vertical = vertical;
-        this._cells = []; // DOM cells grid
     }
 
 
@@ -48,8 +48,8 @@ class Field {
         return (
             this._vertical < 0 ||
             this._horizontal < 0 ||
-            this._vertical >= this._area.length ||
-            this._horizontal >= this._area[0].length
+            this._vertical > this._area.length ||
+            this._horizontal > this._area[0].length
         );
     }
 
@@ -147,15 +147,18 @@ class Field {
         }
     }
 
-    static generateArea(height, width) {
+    static generateArea(height, width, horiztonalPos = 0, verticalPos = 0) {
         const field = Array.from({ length: height }, () =>
             Array.from({ length: width }, () => Field.grass)
         );
 
-        field[0][0] = Field.player;
+        // adding the player position based on the Field creation
+        field[horiztonalPos][verticalPos] = Field.player;
 
         const hatRow = Math.floor(Math.random() * height);
         const hatCol = Math.floor(Math.random() * width);
+
+        //make sure hat wont spawn on the player's locatiob
         while(field[hatRow][hatCol] === Field.player){
             hatRow =  Math.floor(Math.random() * height);
             hatCol = Math.floor(Math.random() * width);

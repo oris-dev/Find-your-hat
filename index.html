@@ -17,17 +17,21 @@
 
         <article>
             <h3> Game rules: </h3>
-            <ul>
+            <ul id = "rules">
                 <li>1. 5x5 playground</li>
                 <li>2. Walk on a hole, you lost </li>
                 <li> 3. If youre out of bounds, you lost </li>
                 <li> 4. If you get the hat - you win! </li>
                 <li> <button id = "create_board" >create board  </button></li>
+                <li>  <button id = "restart"> Restart Board </button> </li>
+                
 
             </ul>
 
-            
-
+            <ul id = "counters"> 
+                <li> Wins: <strong id = "wins"> 0 </strong> </li>
+                <li> Losses: <strong id = "losses"> 0</strong> </li>
+            </ul>
 
         </article>
 
@@ -42,7 +46,7 @@
         </div>
 
 
-        <button id = "restart"> Restart Board </button>
+       
 
     </main>
 

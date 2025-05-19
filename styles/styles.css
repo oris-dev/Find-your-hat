@@ -9,7 +9,8 @@ header,main{
     display:flex;
     justify-content: center;
     align-items: center;
-    margin: 2vw 2vh;
+    margin-top: 2vh;
+    
 }
 
 main{
@@ -29,6 +30,14 @@ article{
     justify-content: center;
 }
 
+ul,li{
+    list-style: none;
+}
+
+#counters{
+    margin-top: 2rem;
+}
+
 #game-board{
     width: 50vw; /* Limit the width */
     height: auto;
@@ -39,6 +48,6 @@ article{
     grid-template-rows: repeat(5, 1fr); /* Create 5 rows */
     gap: 2px; /* Add some gap between cells */
     background-color: bisque;
-    margin-right: 6vw;
+    margin: 0 auto;
     
 }

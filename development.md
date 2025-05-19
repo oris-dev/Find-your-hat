@@ -1,9 +1,11 @@
 Features I want to have in:
-1. Win and Lose counter 
-2. create different difficulties 
-2. store the data using sql or mongodb 
-4. Start working on a proper UI
+* Win and Lose counter / done /
+* random player starting location
+* create different difficulties 
+* store the data using sql or mongodb through players and passwords 
+* Start working on a proper UI
+* add modules 
 
-2. Movement animation and and make everything smoother 
-3. Recreate visuals 
-5. create backend 
+* Movement animation and and make everything smoother 
+* Recreate visuals 
+* create backend 

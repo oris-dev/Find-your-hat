@@ -3,11 +3,19 @@ import { Field } from "./game.js";
 let running = true;
 
 // Create a 5x5 grid and starting position of 0,0
-let area = Field.generateArea(5, 5);
-let gameArea = new Field(area, 0, 0);
+
+
+let width = 5; let height = 5;
+let horiztonalPos = 0, verticalPos = 0;
+let area = Field.generateArea(height, width, horiztonalPos, verticalPos);
+let gameArea = new Field(area, horiztonalPos, verticalPos);
 let boardCreated = false;
+let wins = 0;
+let loses = 0;
 
 const gameBoard = document.getElementById("game-board");
+const winCounter = document.getElementById('wins');
+const loseCounter = document.getElementById('losses');
 const cells = [];
 
 
@@ -68,8 +76,8 @@ function restartBoard() {
 
 
     //regenerating the field and restarting the running boolean
-    area = Field.generateArea(5, 5);
-    gameArea = new Field(area, 0, 0);
+    area = Field.generateArea(width, height);
+    gameArea = new Field(area, horiztonalPos, verticalPos);
     gameArea.cells = cells;
     running = true;
 
@@ -99,6 +107,10 @@ function restartBoard() {
 
 
 function initListeners() {
+
+    // add text to counters
+
+
     document.getElementById("create_board").addEventListener("click", createBoard);
 
 
@@ -110,6 +122,8 @@ function initListeners() {
             gameArea.move(e);
 
             if (gameArea.lost()) {
+                loses++;
+                loseCounter.textContent = loses;
                 running = false;
                 let alertMsg = `You lost`;
                 //assaigning losing cause 
@@ -122,6 +136,8 @@ function initListeners() {
 
             }
             else if (gameArea.won()) {
+                wins++;
+                winCounter.textContent = wins;
                 running = false;
                 alert('You won');
             }
@@ -138,4 +154,5 @@ function initListeners() {
 
 // Add event listener once DOM is fully loaded
 document.addEventListener("DOMContentLoaded", initListeners);
+
 
