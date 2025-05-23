@@ -1,7 +1,7 @@
 Features I want to have in:
 * Win and Lose counter / done /
-* random player starting location
-* create different difficulties 
+* random player starting location /
+* create different difficulties / done /
 * store the data using sql or mongodb through players and passwords 
 * Start working on a proper UI
 * add modules 

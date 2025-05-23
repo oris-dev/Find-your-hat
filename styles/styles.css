@@ -1,53 +1,54 @@
-*{
+* {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-header,main{
+header,
+main {
 
-    display:flex;
+    display: flex;
     justify-content: center;
     align-items: center;
     margin-top: 2vh;
-    
+
 }
 
-main{
+main {
     flex-direction: column;
     gap: 2rem;
 }
 
-header{
-    
+header {
+
     flex-direction: column;
     gap: 1.5vh;
 }
 
-article{
+article {
     flex-direction: flex;
     align-items: center;
     justify-content: center;
 }
 
-ul,li{
+ul,
+li {
     list-style: none;
 }
 
-#counters{
+#counters {
     margin-top: 2rem;
 }
 
-#game-board{
-    width: 50vw; /* Limit the width */
+/* game-board columns and rows will be changed from main.js*/
+#game-board {
+    width: 45vw;
     height: auto;
     border: 2px black solid;
-    background-color: bisque;
-    display: grid; /* Add grid display */
-    grid-template-columns: repeat(5, 1fr); /* Create 5 columns */
-    grid-template-rows: repeat(5, 1fr); /* Create 5 rows */
-    gap: 2px; /* Add some gap between cells */
-    background-color: bisque;
+    display: grid;
+    grid-template-columns: repeat(auto, 1fr);
+    grid-template-rows: repeat(auto, 1fr);
+
     margin: 0 auto;
-    
+
 }

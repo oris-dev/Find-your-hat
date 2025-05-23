@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Find your hat</title>
-    <script src = "logic/main.js" type = "module"></script>
+    <script src="logic/main.js" type="module"></script>
     <link rel="stylesheet" href="styles/characters.css">
     <link rel="stylesheet" href="styles/styles.css">
 </head>
@@ -17,20 +17,28 @@
 
         <article>
             <h3> Game rules: </h3>
-            <ul id = "rules">
+            <ul id="rules">
                 <li>1. 5x5 playground</li>
                 <li>2. Walk on a hole, you lost </li>
                 <li> 3. If youre out of bounds, you lost </li>
                 <li> 4. If you get the hat - you win! </li>
-                <li> <button id = "create_board" >create board  </button></li>
-                <li>  <button id = "restart"> Restart Board </button> </li>
-                
+                <li> <button id="create_board">create board </button></li>
+                <li><label for="hole-slider">Hole Difficulty:</label>
+                    <input type="range" id="hole-slider" min="10" max="50" step="1" value="10">
+                    <span id="hole-percent">10%</span>
+                </li>
+                <li><label for="size-slider">Board size:</label>
+                    <input type="range" id="size-slider" min="5" max="10" step="1" value="5">
+                    <span id="size-label">5X5</span>
+                </li>
+                <li> <button id="restart"> Restart Board </button> </li>
+
 
             </ul>
 
-            <ul id = "counters"> 
-                <li> Wins: <strong id = "wins"> 0 </strong> </li>
-                <li> Losses: <strong id = "losses"> 0</strong> </li>
+            <ul id="counters">
+                <li> Wins: <strong id="wins"> 0 </strong> </li>
+                <li> Losses: <strong id="losses"> 0</strong> </li>
             </ul>
 
         </article>
@@ -41,12 +49,12 @@
     <main>
 
 
-        <div id = "game-board">
+        <div id="game-board">
             <!-- ill create here using the DOM a 5x5 board-->
         </div>
 
 
-       
+
 
     </main>
 

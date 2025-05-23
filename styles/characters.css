@@ -3,12 +3,13 @@
     --cell-height: 15vh;
 }
 
-.cell{
-    width: var(--cell-width);
-    height: var(--cell-height);
-    display: block;
-}
 
+.cell{
+    aspect-ratio: 1/1;
+    width:100%;
+    display:block;
+    border: 2px black solid;
+}
 .hat{
     background-color:red;    
 }

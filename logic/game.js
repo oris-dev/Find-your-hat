@@ -7,7 +7,7 @@ class Field {
     static grass = '░';
     static dirt = '|';
 
-    constructor(area, horizontal, vertical){
+    constructor(area, horizontal, vertical) {
         this._area = area;
         this._cells = [];
         this._horizontal = horizontal;
@@ -48,10 +48,12 @@ class Field {
         return (
             this._vertical < 0 ||
             this._horizontal < 0 ||
-            this._vertical > this._area.length ||
-            this._horizontal > this._area[0].length
+            this._vertical >= this._area.length ||
+            this._horizontal >= this._area[0].length
         );
     }
+
+
 
     lost() {
         if (this.outOfBounds()) {
@@ -59,8 +61,13 @@ class Field {
             return true;
         }
 
-        if (this._area[this._vertical][this._horizontal] === Field.hole) {
-            console.log("You fell in a hole. You lost.");
+        else if (this._area[this._vertical][this._horizontal] === Field.hole) {
+            console.log('You fell in a hole - you lost');
+            return true;
+        }
+
+        else if (this.area[this._vertical][this._horizontal] === Field.dirt) {
+            console.log('You went back on your traces, you lost');
             return true;
         }
 
@@ -101,15 +108,24 @@ class Field {
                 break; // do nothing if it's not a movement key
         }
 
-
-        if (!this.lost() && !this.won()) {
-            this._area[prevPos.v][prevPos.h] = Field.dirt;
-            this._area[this._vertical][this._horizontal] = Field.player;
-            prevPos.v = this._vertical; // update prev player Positions
-            prevPos.h = this._horizontal;
-            this.updateBoardVisuals();
-            this.print(); // optional debug
+        // update before changing the area
+        if (this.outOfBounds()) {
+            this.lost();
+            return;
         }
+
+        if (this.lost() || this.won()) {
+            return;
+        }
+
+        this._area[prevPos.v][prevPos.h] = Field.dirt;
+        this._area[this._vertical][this._horizontal] = Field.player;
+        prevPos.v = this._vertical; // update prev player Positions
+        prevPos.h = this._horizontal;
+
+        this.updateBoardVisuals();
+        this.print();
+
     }
 
     updateBoardVisuals() {
@@ -147,7 +163,10 @@ class Field {
         }
     }
 
-    static generateArea(height, width, horiztonalPos = 0, verticalPos = 0) {
+
+    // difficulty will be taken from the difficulty slider the difficutly will range from 10% holes to 50% holes
+    static generateArea(height, width, horiztonalPos = 0, verticalPos = 0, difficulty) {
+
         const field = Array.from({ length: height }, () =>
             Array.from({ length: width }, () => Field.grass)
         );
@@ -159,24 +178,27 @@ class Field {
         const hatCol = Math.floor(Math.random() * width);
 
         //make sure hat wont spawn on the player's locatiob
-        while(field[hatRow][hatCol] === Field.player){
-            hatRow =  Math.floor(Math.random() * height);
+        while (field[hatRow][hatCol] === Field.player) {
+            hatRow = Math.floor(Math.random() * height);
             hatCol = Math.floor(Math.random() * width);
         }
         field[hatRow][hatCol] = Field.hat;
 
-        
-    
-        const minHoles = 2;
-        const maxHoles = Math.ceil((height * width) * 0.3);
-        const numHoles = Math.floor(Math.random() * (maxHoles - minHoles + 1)) + minHoles;
+
+
+        //const minHoles = 2;
+        // const maxHoles = Math.ceil((height * width) * difficulty);
+        // const numHoles = Math.floor(Math.random() * (maxHoles - minHoles + 1)) + minHoles;
+
+        const numHoles = Math.ceil((height * width) * difficulty);
+        console.log(`hole number : ${numHoles}`);
 
         let holesPlaced = 0;
         while (holesPlaced < numHoles) {
             const r = Math.floor(Math.random() * height);
             const c = Math.floor(Math.random() * width);
 
-            if (field[r][c] !== Field.player  && field[r][c] !== Field.hat) {
+            if (field[r][c] !== Field.player && field[r][c] !== Field.hat) {
                 field[r][c] = Field.hole;
                 holesPlaced++;
             }
