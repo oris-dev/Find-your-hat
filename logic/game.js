@@ -128,6 +128,8 @@ class Field {
 
     }
 
+
+
     updateBoardVisuals() {
         for (let row = 0; row < this._area.length; row++) {
             for (let col = 0; col < this._area[row].length; col++) {
@@ -143,6 +145,8 @@ class Field {
                         break;
                     case Field.player:
                         cell.classList.add('player');
+                        cell.classList.remove('dirt');
+                        cell.classList.remove('grass');
                         break;
                     case Field.grass:
                         cell.classList.add('grass');

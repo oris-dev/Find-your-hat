@@ -188,7 +188,7 @@ function initListeners() {
 
 
 
-    });
+});
 
     //restart game
     document.getElementById('restart').addEventListener("click", restartBoard);
